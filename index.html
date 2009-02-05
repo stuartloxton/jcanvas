@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<title>jCanvas Examples</title>
+		<script src="scripts/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="scripts/jquery.canvas.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			$(function() {
+				// jCanvas code for drawing shape with coords ([10,10], [100, 30], [10, 60]);
+				$('canvas').drawShape(
+					[10,10],
+					[100, 30],
+					[10, 60]
+				);
+				
+				
+				// Normal canvas code
+				var ctx = document.getElementById('example').getContext('2d');
+				ctx.moveTo(110, 10);
+				ctx.lineTo(200, 30);
+				ctx.lineTo(110, 60);
+				ctx.fill();
+			});
+		</script>
+	</head>
+	<body>
+		<canvas id="example" height="700" width="700"></canvas>
+	</body>
+</html>

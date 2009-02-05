@@ -1,0 +1,9 @@
+h1. jCanvas
+
+jCanvas is a jQuery plugin to make dealing with the new &lt;canvas\&gt; tag as easy and painless as possible with a hint of jQuery like syntax.
+
+h3. Current Function List
+
+@$(canvas).drawShape(_point1_, _point2_, _pointN_...)@
+
+Draws a shape based on the co-ordinates given. e.g. @$.drawShape('canvas').drawShape([10, 10], [100, 30], [10, 60]);@
