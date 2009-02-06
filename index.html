@@ -6,43 +6,44 @@
 		<script type="text/javascript" charset="utf-8">
 			$(function() {
 				
-				// Initialisation for non jCanvas code
-				var ctx = document.getElementById('example').getContext('2d');
+				/*====================================================
+				Using jCanvas                  
+				====================================================*/
+				$('#jcanvas').fillStyle('#A0A000')
+					.drawShape(
+						[10,10],
+						[100, 30],
+						[10, 60]
+					)
+					.fillText('Example text', 10, 90)
+					.fillRect(10, 120, 90, 50);
 				
 				
-				// jCanvas code for drawing shape with coords ([10,10], [100, 30], [10, 60]);
-				$('canvas').drawShape(
-					[10,10],
-					[100, 30],
-					[10, 60]
-				);
 				
-				
-				// Normal canvas code
-				ctx.moveTo(130, 10);
-				ctx.lineTo(220, 30);
-				ctx.lineTo(130, 60);
+				/*====================================================================
+				Not using jCanvas
+				====================================================================*/
+				var ctx = document.getElementById('norm').getContext('2d');
+				ctx.fillStyle = '#00A0A0';
+				ctx.moveTo(10, 10);
+				ctx.lineTo(100, 30);
+				ctx.lineTo(10, 60);
 				ctx.fill();
-				
-				
-				
-				
-				// Canvas code
-				$('canvas').fillText('Example text', 10, 90);
-				
-				// normal code for drawing text
 				if(ctx.drawText) {
-					ctx.fillText('Example text', 130, 90); // Valid text code for FF3.1+
+					ctx.fillText('Example text', 10, 90); // Valid text code for FF3.1+
 				} else {
-					ctx.translate(130, 90);
+					ctx.translate(10, 90);
 					ctx.mozDrawText('Example text'); // for FF3-
-					ctx.translate(-130, -90);
+					ctx.translate(-10, -90);
 				}
+				ctx.fillRect(10, 120, 90, 50);
+				
 				
 			});
 		</script>
 	</head>
 	<body>
-		<canvas id="example" height="700" width="700"></canvas>
+		<canvas id="jcanvas" height="300" width="300"></canvas>
+		<canvas id="norm" height="300" width="300">
 	</body>
 </html>

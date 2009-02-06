@@ -11,7 +11,7 @@
 	
 	
 	$.fn.drawShape = function() {
-		ctx = this.getContext();
+		var ctx = this.getContext();
 		var args = arguments;
 		ctx.beginPath();
 		
@@ -22,10 +22,11 @@
 		})
 		
 		ctx.fill();
+		return this;
 	}
 	
 	$.fn.fillText = function(text, x, y) {
-		ctx = this.getContext();
+		var ctx = this.getContext();
 		if($.support.fillText) {
 			ctx.fillText(text, x, y);
 		} else {
@@ -43,6 +44,33 @@
 					});
 			}
 		}
+		return this;
+	}
+
+	$.fn.fillStyle = function(val) {
+		var ctx = this.getContext();
+		if(val) {
+			ctx.fillStyle = val;
+			return this;
+		} else return ctx.fillStyle;
+	}
+	
+	$.fn.fillRect = function(x, y, w, h) {
+		var ctx = this.getContext();
+		ctx.fillRect(x, y, w, h);
+		return this;
+	}
+	
+	$.fn.rotate = function(r) {
+		var ctx = this.getContext();
+		ctx.rotate(r);
+		return this;
+	}
+	
+	$.fn.translate = function(x, y) {
+		var ctx = this.getContext();
+		ctx.translate(x, y);
+		return this;
 	}
 	
 	
