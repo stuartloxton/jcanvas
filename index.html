@@ -5,6 +5,11 @@
 		<script src="scripts/jquery.canvas.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" charset="utf-8">
 			$(function() {
+				
+				// Initialisation for non jCanvas code
+				var ctx = document.getElementById('example').getContext('2d');
+				
+				
 				// jCanvas code for drawing shape with coords ([10,10], [100, 30], [10, 60]);
 				$('canvas').drawShape(
 					[10,10],
@@ -14,11 +19,26 @@
 				
 				
 				// Normal canvas code
-				var ctx = document.getElementById('example').getContext('2d');
-				ctx.moveTo(110, 10);
-				ctx.lineTo(200, 30);
-				ctx.lineTo(110, 60);
+				ctx.moveTo(130, 10);
+				ctx.lineTo(220, 30);
+				ctx.lineTo(130, 60);
 				ctx.fill();
+				
+				
+				
+				
+				// Canvas code
+				$('canvas').fillText('Example text', 10, 90);
+				
+				// normal code for drawing text
+				if(ctx.drawText) {
+					ctx.fillText('Example text', 130, 90); // Valid text code for FF3.1+
+				} else {
+					ctx.translate(130, 90);
+					ctx.mozDrawText('Example text'); // for FF3-
+					ctx.translate(-130, -90);
+				}
+				
 			});
 		</script>
 	</head>
