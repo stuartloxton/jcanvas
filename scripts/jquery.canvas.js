@@ -1,6 +1,5 @@
 (function($) {
 	
-	
 	var exCanvas = $('<canvas>')[0]; // Create a blank empty canvas not on the page to test features with.
 	$.support.fillText = $.isFunction(exCanvas.getContext('2d').fillText);
 	$.support.CanvasText = $.browser.mozilla;
@@ -40,7 +39,8 @@
 				this.next().css({
 						position: 'absolute',
 						left: canvasOffset.left + x,
-						top: canvasOffset.top + y
+						top: canvasOffset.top + y,
+						color: this.fillStyle()
 					});
 			}
 		}
@@ -52,28 +52,35 @@
 		if(val) {
 			ctx.fillStyle = val;
 			return this;
-		} else return ctx.fillStyle;
-	}
-	
-	$.fn.fillRect = function(x, y, w, h) {
-		var ctx = this.getContext();
-		ctx.fillRect(x, y, w, h);
-		return this;
+		} else {
+			return ctx.fillStyle;
+		}
 	}
 	
 	$.fn.rotate = function(r) {
-		var ctx = this.getContext();
-		ctx.rotate(r);
+		this.getContext().rotate(r);
 		return this;
 	}
 	
 	$.fn.translate = function(x, y) {
-		var ctx = this.getContext();
-		ctx.translate(x, y);
+		this.getContext().translate(x, y);
 		return this;
 	}
 	
+	$.fn.fillRect = function(x, y, w, h) {
+		this.getContext().fillRect(x, y, w, h);
+		return this;
+	}
 	
+	$.fn.strokeRect = function(x, y, width, height) {
+		this.getContext().strokeRect(x, y, width, height);
+		return this;
+	}
+	
+	$.fn.clearRect = function(x, y, width, height) {
+		this.getContext().clearRect(x, y, width, height);
+		return this;
+	}
 	
 	
 })(jQuery);

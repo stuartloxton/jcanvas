@@ -16,7 +16,8 @@
 						[10, 60]
 					)
 					.fillText('Example text', 10, 90)
-					.fillRect(10, 120, 90, 50);
+					.fillRect(10, 120, 90, 50)
+					.clearRect(20, 130, 70, 30);
 				
 				
 				
@@ -31,12 +32,13 @@
 				ctx.fill();
 				if(ctx.drawText) {
 					ctx.fillText('Example text', 10, 90); // Valid text code for FF3.1+
-				} else {
+				} else if(ctx.mozDrawText) {
 					ctx.translate(10, 90);
 					ctx.mozDrawText('Example text'); // for FF3-
 					ctx.translate(-10, -90);
 				}
 				ctx.fillRect(10, 120, 90, 50);
+				ctx.clearRect(20, 130, 70, 30);
 				
 				
 			});

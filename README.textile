@@ -2,8 +2,18 @@ h1. jCanvas
 
 jCanvas is a jQuery plugin to make dealing with the new &lt;canvas\&gt; tag as easy and painless as possible with a hint of jQuery like syntax.
 
+h3. Text support
+
+Currently only Firefox supports text in a canvas element, with a different API for FF3.1+ and previous versions. jCanvas deals with this for you, with firefox rendering the text fine and all other browsers having a div positioned absolute above the canvas in the correct position.
+
+
 h3. Current Function List
 
-@$(canvas).drawShape(_point1_, _point2_, _pointN_...)@
-
-Draws a shape based on the co-ordinates given. e.g. @$.drawShape('canvas').drawShape([10, 10], [100, 30], [10, 60]);@
+* @$(canvas).drawShape(_point1_, _point2_, _pointN_...)@
+* @$(canvas).getContext()@
+* @$(canvas).fillText(textString, x, y)@
+* @$(canvas).rotate(r)@
+* @$(canvas).translate(x, y)@
+* @$(canvas).fillRect(x, y, w, h)@
+* @$(canvas).strokeRect(x, y, w, h)@
+* @$(canvas).clearRect(x, y, w, h)@
