@@ -27,6 +27,7 @@
 	
 	
 	$.fn.drawShape = function() {
+		this.trigger('beforeDraw');
 		var ctx = this.getContext();
 		var args = arguments;
 		ctx.beginPath();
@@ -38,10 +39,12 @@
 		})
 		
 		ctx.fill();
+		this.trigger('afterDraw');
 		return this;
 	}
 	
 	$.fn.fillText = function(text, x, y) {
+		this.trigger('beforeDraw');
 		var ctx = this.getContext();
 		if($.support.fillText) {
 			ctx.fillText(text, x, y);
@@ -61,6 +64,7 @@
 					});
 			}
 		}
+		this.trigger('afterDraw');
 		return this;
 	}
 
@@ -74,30 +78,16 @@
 		}
 	}
 	
-	$.fn.rotate = function(r) {
-		this.getContext().rotate(r);
-		return this;
-	}
+	var proxiedFuncs = ['rotate', 'translate', 'fillRect', 'strokeRect', 'clearRect', 'moveTo', 'lineTo', 'fill', 'stroke'];
 	
-	$.fn.translate = function(x, y) {
-		this.getContext().translate(x, y);
-		return this;
-	}
-	
-	$.fn.fillRect = function(x, y, w, h) {
-		this.getContext().fillRect(x, y, w, h);
-		return this;
-	}
-	
-	$.fn.strokeRect = function(x, y, width, height) {
-		this.getContext().strokeRect(x, y, width, height);
-		return this;
-	}
-	
-	$.fn.clearRect = function(x, y, width, height) {
-		this.getContext().clearRect(x, y, width, height);
-		return this;
-	}
+	$.each(proxiedFuncs, function(k, i) {
+		$.fn[i] = function(a, b, c, d) {
+			this.trigger('beforeDraw');
+			this.getContext()[i](a, b, c, d);
+			this.trigger('afterDraw');
+			return this;
+		};
+	});
 	
 	
 })(jQuery);
