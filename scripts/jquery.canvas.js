@@ -4,8 +4,25 @@
 	$.support.fillText = $.isFunction(exCanvas.getContext('2d').fillText);
 	$.support.CanvasText = $.browser.mozilla;
 	
+	$.fn.initAsCanvas = function(options) {
+		settings = jQuery.extend({
+			height: '100%',
+			width:  '100%'
+		}, options);
+		
+		this.find('*').remove();
+		
+		if(/\%/.test(settings.height)) settings.height = this.height() * (parseInt(settings.height.replace('%', '')) / 100);
+		if(/\%/.test(settings.width)) settings.width = this.width() * (parseInt(settings.width.replace('%', '')) / 100);
+		
+		this.append('<canvas height="' + settings.height + '" width="' + settings.width + '"></canvas>');
+		this.data('isCanvas', true);
+		return this.find('canvas');
+	}
+	
 	$.fn.getContext = function() {
-		return this[0].getContext('2d');
+		if(this.data('isCanvas')) return this.find('canvas')[0].getContext('2d');
+		else return this[0].getContext('2d');
 	}
 	
 	

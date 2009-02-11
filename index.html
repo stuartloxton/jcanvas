@@ -9,7 +9,7 @@
 				/*====================================================
 				Using jCanvas                  
 				====================================================*/
-				$('#jcanvas').fillStyle('#A0A000')
+				$('#jcanvas').initAsCanvas().fillStyle('#F0F')
 					.drawShape(
 						[10,10],
 						[100, 30],
@@ -43,9 +43,18 @@
 				
 			});
 		</script>
+		<style type="text/css" media="screen">
+			#jcanvas {
+				height: 300px;
+				width: 300px;
+			}
+		</style>
 	</head>
 	<body>
-		<canvas id="jcanvas" height="300" width="300"></canvas>
+		<div id="jcanvas">
+			<p>This is fallback content that works cross browser and platform with no hacks.</p>
+		</div>
+		<!-- <canvas id="jcanvas" height="300" width="300"></canvas> -->
 		<canvas id="norm" height="300" width="300">
 	</body>
 </html>
