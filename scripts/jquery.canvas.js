@@ -4,6 +4,8 @@
 	$.support.fillText = $.isFunction(exCanvas.getContext('2d').fillText);
 	$.support.CanvasText = $.browser.mozilla;
 	
+	$.canvas = {};
+	
 	$.fn.initAsCanvas = function(options) {
 		settings = jQuery.extend({
 			height: '100%',
@@ -15,7 +17,7 @@
 		if(/\%/.test(settings.height)) settings.height = this.height() * (parseInt(settings.height.replace('%', '')) / 100);
 		if(/\%/.test(settings.width)) settings.width = this.width() * (parseInt(settings.width.replace('%', '')) / 100);
 		
-		this.append('<canvas height="' + settings.height + '" width="' + settings.width + '"></canvas>');
+		this.append('<canvas id="' + new Date().getTime() + '" height="' + settings.height + '" width="' + settings.width + '"></canvas>');
 		this.data('isCanvas', true);
 		return this.find('canvas');
 	}
@@ -78,7 +80,36 @@
 		}
 	}
 	
-	var proxiedFuncs = ['rotate', 'translate', 'fillRect', 'strokeRect', 'clearRect', 'moveTo', 'lineTo', 'fill', 'stroke'];
+	$.fn.rotate = function(r) {
+		if($.canvas[this.getContext().canvas.id] === undefined) $.canvas[this.getContext().canvas.id] = {
+			rotation: 0
+		};
+		this.trigger('beforeDraw');
+		this.getContext().rotate(r);
+		$.canvas[this.getContext().canvas.id].rotation = val;
+		this.trigger('afterDraw');
+		return this;
+	}
+	
+	$.fn.rotation = function(val) {
+		if($.canvas[this.getContext().canvas.id] === undefined) $.canvas[this.getContext().canvas.id] = {
+			rotation: 0
+		};
+		if(val === undefined) return $.canvas[this.getContext().canvas.id].rotation;
+		else {
+			if(/^(\-|\+)=/.test(val)) {
+				val = parseFloat(val.replace('=', ''));
+				$.canvas[this.getContext().canvas.id].rotation += val;
+				this.getContext().rotate(val);
+			} else {
+				this.getContext().rotate(val - $.canvas[this.getContext().canvas.id].rotation);
+				$.canvas[this.getContext().canvas.id].rotation = val;
+			}
+			return this;
+		}
+	}
+	
+	var proxiedFuncs = ['translate', 'fillRect', 'strokeRect', 'clearRect', 'moveTo', 'lineTo', 'fill', 'stroke'];
 	
 	$.each(proxiedFuncs, function(k, i) {
 		$.fn[i] = function(a, b, c, d) {
